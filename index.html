@@ -1,1 +1,523 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>montasings 🎤</title><style>*{box-sizing:border-box}body{margin:0;background:#190b2b;color:white;font-family:system-ui,sans-serif;text-align:center;min-height:100vh;background-image:radial-gradient(circle at 20% 15%,#7b2c91 0,transparent 35%),radial-gradient(circle at 90% 85%,#402c96 0,transparent 40%)}main{max-width:480px;margin:auto;padding:24px 18px 60px}.tag{color:#ffdc65;font-weight:900;letter-spacing:3px}h1{font-size:clamp(36px,9vw,58px);line-height:1.02;margin:24px 0 12px}p{color:#e4cdeb}.portrait{width:235px;height:235px;border-radius:50%;object-fit:cover;object-position:center 18%;border:7px solid #ffce4f;box-shadow:0 0 0 9px #ffffff20,0 16px 50px #0008;margin:20px auto}button{border:0;border-radius:18px;padding:18px 22px;background:#ffce4f;color:#26102f;font-weight:900;font-size:18px;width:100%;cursor:pointer;box-shadow:0 7px 0 #c38d23}button:active{transform:translateY(4px);box-shadow:0 3px 0 #c38d23}.panel{background:#ffffff12;border:1px solid #ffffff26;border-radius:20px;padding:20px;margin-top:26px}input{width:100%;padding:14px;border-radius:12px;border:0;margin:8px 0;background:white;color:#24112e;font-size:16px}.small{font-size:13px;color:#cbb6d8}#result{font-weight:800;font-size:20px;margin-top:18px}a{color:#ffdc65}</style></head><body><main><div class="tag">✦ THE DAILY MONTA SHOW ✦</div><h1>WHAT'S MONTA<br>SINGING TODAY?</h1><p>One legend. Zero song ideas. Infinite drama.</p><img class="portrait" src="monta.jpg" alt="Monta"><button id="draw">🎲 PICK MY NEXT SONG!</button><div id="result" aria-live="polite"></div><section class="panel"><h2>🎵 Suggest a banger</h2><p>Drop a YouTube link and your name.</p><form id="suggest"><input id="name" placeholder="Your name" required maxlength="40"><input id="url" placeholder="YouTube link" type="url" required><button type="submit">ADD TO THE MIX ✨</button></form><p class="small" id="status">Preview mode: songs are saved on this device only. Shared submissions are coming next.</p></section><section class="panel"><h2>🏆 Hall of Fame</h2><p id="count">0 songs waiting</p><p class="small">Singer mode and shared history coming soon.</p></section></main><script>const key='montasings-demo';let songs=JSON.parse(localStorage.getItem(key)||'[]');const result=document.querySelector('#result'),count=document.querySelector('#count');function update(){count.textContent=songs.length+' song'+(songs.length===1?'':'s')+' waiting'}update();document.querySelector('#suggest').addEventListener('submit',e=>{e.preventDefault();const name=document.querySelector('#name').value.trim(),url=document.querySelector('#url').value.trim();let u;try{u=new URL(url)}catch{return alert('Please enter a valid YouTube URL')};if(!['youtube.com','www.youtube.com','m.youtube.com','youtu.be','www.youtu.be','music.youtube.com'].includes(u.hostname))return alert('Please paste a YouTube link');let id=u.hostname.includes('youtu.be')?u.pathname.slice(1):u.searchParams.get('v')||(u.pathname.match(/\/(shorts|embed)\/([^/]+)/)||[])[2];if(!id||!/^[\w-]{11}$/.test(id))return alert('This YouTube link does not look valid');if(songs.some(s=>s.id===id))return alert('This song is already in the mix!');songs.push({id,name,url:'https://www.youtube.com/watch?v='+id});localStorage.setItem(key,JSON.stringify(songs));e.target.reset();document.querySelector('#status').textContent='Added! (Saved on this device for now.)';update()});document.querySelector('#draw').addEventListener('click',()=>{if(!songs.length){result.textContent='🎶 Add a song first!';return}result.textContent='🥁 DRUMROLL PLEASE...';setTimeout(()=>{const s=songs[Math.floor(Math.random()*songs.length)];result.innerHTML='🎉 MONTA, YOUR DESTINY AWAITS!<p>Suggested by '+s.name.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))+'</p><a target="_blank" rel="noopener noreferrer" href="'+s.url+'">▶ WATCH THE SONG ON YOUTUBE</a>'},1400)});</script></body></html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#21112f">
+  <title>montasings 🎤</title>
+  <style>
+    :root {
+      --bg:#21112f;
+      --panel:#39204d;
+      --pink:#ff73c5;
+      --yellow:#ffdc58;
+      --white:#fff7ff;
+      --muted:#d9c4e5;
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      color:var(--white);
+      font-family:system-ui,-apple-system,sans-serif;
+      background:radial-gradient(circle at 50% 0%,#663184,var(--bg) 65%);
+      min-height:100vh;
+    }
+    .container { max-width:540px; margin:auto; padding:20px 16px 60px; }
+    header { display:flex; justify-content:space-between; align-items:center; }
+    .brand { font-size:23px; font-weight:950; color:var(--yellow); }
+    .pill {
+      border:1px solid #9366a9;
+      border-radius:30px;
+      padding:8px 12px;
+      font-size:12px;
+      background:#ffffff12;
+      color:var(--white);
+    }
+    .hero { text-align:center; padding:30px 0 20px; }
+    h1 {
+      font-size:clamp(35px,9vw,53px);
+      line-height:1.03;
+      margin:10px 0;
+      letter-spacing:-2px;
+    }
+    h1 span { color:var(--yellow); }
+    .subtitle { color:var(--muted); font-size:14px; }
+    .portrait {
+      width:210px;
+      height:210px;
+      object-fit:cover;
+      object-position:center 22%;
+      border-radius:50%;
+      border:7px solid var(--pink);
+      box-shadow:0 0 0 9px #ff73c51c,0 0 65px #ff73c54a;
+      margin:24px auto;
+      display:block;
+    }
+    button {
+      cursor:pointer;
+      border:0;
+      border-radius:15px;
+      padding:14px 18px;
+      font-size:15px;
+      font-weight:800;
+      font-family:inherit;
+    }
+    button:disabled { opacity:.5; cursor:not-allowed; }
+    .primary {
+      width:100%;
+      background:var(--yellow);
+      color:#261331;
+      box-shadow:0 5px 0 #b78b24;
+    }
+    .secondary {
+      background:#65417d;
+      color:white;
+      width:100%;
+    }
+    .pink { background:var(--pink); color:#2d1237; width:100%; }
+    .stats { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:22px 0; }
+    .stat { background:var(--panel); border-radius:16px; padding:16px; text-align:center; }
+    .stat strong { display:block; font-size:30px; color:var(--yellow); }
+    .stat small { color:var(--muted); }
+    .card {
+      background:var(--panel);
+      border:1px solid #ffffff1a;
+      border-radius:22px;
+      padding:22px;
+      margin:18px 0;
+    }
+    h2 { margin:0 0 12px; font-size:23px; }
+    p { line-height:1.5; }
+    label { display:block; margin:13px 0 6px; font-size:13px; font-weight:700; }
+    input {
+      width:100%;
+      padding:14px;
+      border-radius:12px;
+      border:1px solid #9064a7;
+      background:#241331;
+      color:white;
+      font-size:16px;
+    }
+    input::placeholder { color:#ad91bd; }
+    .hint { color:var(--muted); font-size:12px; }
+    .message { margin-top:12px; font-size:13px; min-height:20px; }
+    .song {
+      padding:13px 0;
+      border-bottom:1px solid #ffffff20;
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+    .song img { width:85px; border-radius:9px; }
+    .song-info { min-width:0; flex:1; }
+    .song-title { font-weight:800; overflow-wrap:anywhere; }
+    .song-meta { font-size:12px; color:var(--muted); margin-top:5px; }
+    a { color:var(--yellow); }
+    .empty { color:var(--muted); text-align:center; padding:15px; }
+    .reveal {
+      display:none;
+      text-align:center;
+      padding:22px 0;
+    }
+    .reveal h2 { color:var(--yellow); font-size:29px; }
+    .reveal img { width:100%; border-radius:15px; margin:12px 0; }
+    iframe { width:100%; aspect-ratio:16/9; border:0; border-radius:12px; }
+    .countdown { font-size:85px; font-weight:950; color:var(--yellow); }
+    .hidden { display:none!important; }
+    .row { display:flex; gap:10px; align-items:center; }
+    .row button { flex:1; }
+    footer { text-align:center; color:var(--muted); font-size:12px; margin-top:30px; }
+    .tag { color:#a9f0c4; font-size:12px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">🎤 montasings</div>
+      <button class="pill" id="modeBtn">🎙️ Singer Mode</button>
+    </header>
+
+    <section class="hero">
+      <div class="pill" style="display:inline-block">THE OFFICIAL MONTA SONG GENERATOR</div>
+      <h1>WHAT'S MONTA<br><span>SINGING TODAY?</span></h1>
+      <p class="subtitle">One man. Infinite questionable song choices.</p>
+      <img class="portrait" src="monta.jpg" alt="Monta">
+      <p>His voice. Your terrible decisions. 🎶</p>
+      <button class="primary" id="drawBtn">🎲 PICK MY NEXT SONG!</button>
+      <p class="hint" id="connection">Connecting to the shared song vault...</p>
+    </section>
+
+    <div class="stats">
+      <div class="stat"><strong id="waitingCount">0</strong><small>Songs waiting</small></div>
+      <div class="stat"><strong id="sungCount">0</strong><small>Legendary performances</small></div>
+    </div>
+
+    <section class="card reveal" id="reveal">
+      <div id="countdown" class="countdown"></div>
+      <div id="result" class="hidden">
+        <h2>🎉 MONTA, YOU'RE UP!</h2>
+        <div id="resultTitle" class="song-title"></div>
+        <p id="resultBy" class="subtitle"></p>
+        <div id="videoContainer"></div>
+        <button class="pink hidden" id="sungBtn">🏆 I SANG IT!</button>
+        <p class="hint" id="singerHint">Only Monta can mark a song as performed.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>💌 Suggest a banger</h2>
+      <p class="subtitle">Give Monta his next musical challenge.</p>
+      <form id="songForm">
+        <label for="name">Your name</label>
+        <input id="name" maxlength="40" placeholder="Your legendary name" required>
+        <label for="youtube">YouTube link</label>
+        <input id="youtube" type="url" placeholder="https://www.youtube.com/watch?v=..." required>
+        <p class="hint">YouTube videos and Shorts are supported.</p>
+        <button class="pink" type="submit" id="submitBtn">🚀 SUBMIT SONG</button>
+      </form>
+      <div class="message" id="formMessage" aria-live="polite"></div>
+    </section>
+
+    <section class="card">
+      <div class="row" style="justify-content:space-between">
+        <h2>🎵 Song Vault</h2>
+        <button class="pill" id="refreshBtn">↻ Refresh</button>
+      </div>
+      <div id="songList" class="empty">Loading songs...</div>
+    </section>
+
+    <section class="card">
+      <h2>🏆 Hall of Fame</h2>
+      <p class="subtitle">Songs that Monta has survived.</p>
+      <div id="historyList" class="empty">No performances yet.</div>
+    </section>
+
+    <section class="card hidden" id="loginPanel">
+      <h2>🎙️ Singer Mode</h2>
+      <p class="subtitle">Authorized singer login only.</p>
+      <form id="loginForm">
+        <label for="email">Email</label>
+        <input id="email" type="email" autocomplete="email" required>
+        <label for="password">Password</label>
+        <input id="password" type="password" autocomplete="current-password" required>
+        <button class="primary" type="submit">Log in</button>
+      </form>
+      <button class="secondary hidden" id="logoutBtn">Log out</button>
+      <div class="message" id="loginMessage"></div>
+    </section>
+
+    <footer>Made with questionable love for Monta 💜</footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script>
+    const SUPABASE_URL = 'https://qqotjnfussuasbobyopv.supabase.co';
+    const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_mzJZZHnIHRTU3s0gI9v6Eg_eu8d4GqU';
+
+    const db = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_PUBLISHABLE_KEY
+    );
+
+    const $ = id => document.getElementById(id);
+    let songs = [];
+    let currentSong = null;
+    let isSinger = false;
+    let drawing = false;
+
+    function youtubeId(value) {
+      try {
+        const url = new URL(value.trim());
+        const host = url.hostname.toLowerCase();
+        let id = null;
+
+        if (host === 'youtu.be' || host === 'www.youtu.be') {
+          id = url.pathname.split('/')[1];
+        } else if (
+          host === 'youtube.com' ||
+          host === 'www.youtube.com' ||
+          host === 'm.youtube.com' ||
+          host === 'music.youtube.com'
+        ) {
+          if (url.pathname === '/watch') {
+            id = url.searchParams.get('v');
+          } else {
+            const parts = url.pathname.split('/');
+            if (['shorts','embed','live'].includes(parts[1])) {
+              id = parts[2];
+            }
+          }
+        }
+
+        return /^[A-Za-z0-9_-]{11}$/.test(id || '') ? id : null;
+      } catch {
+        return null;
+      }
+    }
+
+    function thumbnail(id) {
+      return `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+    }
+
+    function makeSongElement(song) {
+      const item = document.createElement('div');
+      item.className = 'song';
+
+      const img = document.createElement('img');
+      img.src = thumbnail(song.youtube_id);
+      img.alt = 'YouTube thumbnail';
+      img.loading = 'lazy';
+
+      const info = document.createElement('div');
+      info.className = 'song-info';
+
+      const link = document.createElement('a');
+      link.className = 'song-title';
+      link.href = `https://www.youtube.com/watch?v=${song.youtube_id}`;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.textContent = song.title;
+
+      const meta = document.createElement('div');
+      meta.className = 'song-meta';
+      meta.textContent = 'Suggested by ' + song.suggested_by;
+
+      info.append(link, meta);
+      item.append(img, info);
+      return item;
+    }
+
+    function renderSongs() {
+      const waiting = songs.filter(s => !s.sung_at);
+      const performed = songs.filter(s => !!s.sung_at);
+
+      $('waitingCount').textContent = waiting.length;
+      $('sungCount').textContent = performed.length;
+
+      $('songList').replaceChildren();
+      $('historyList').replaceChildren();
+
+      if (!waiting.length) {
+        $('songList').textContent = 'No songs waiting. Suggest the first banger!';
+        $('songList').className = 'empty';
+      } else {
+        $('songList').className = '';
+        waiting.forEach(s => $('songList').append(makeSongElement(s)));
+      }
+
+      if (!performed.length) {
+        $('historyList').textContent = 'No performances yet. The legend awaits.';
+        $('historyList').className = 'empty';
+      } else {
+        $('historyList').className = '';
+        performed
+          .sort((a,b) => new Date(b.sung_at) - new Date(a.sung_at))
+          .forEach(s => $('historyList').append(makeSongElement(s)));
+      }
+    }
+
+    async function loadSongs() {
+      const { data, error } = await db
+        .from('songs')
+        .select('id,youtube_id,title,suggested_by,created_at,sung_at')
+        .order('created_at', { ascending:false })
+        .limit(1000);
+
+      if (error) {
+        $('connection').textContent = '⚠️ Database error: ' + error.message;
+        return;
+      }
+
+      songs = data || [];
+      $('connection').textContent = '🟢 Shared song vault connected!';
+      renderSongs();
+    }
+
+    async function loadSingerStatus() {
+      const { data:{user}, error } = await db.auth.getUser();
+      if (error || !user) {
+        isSinger = false;
+      } else {
+        const result = await db.rpc('is_montasings_singer');
+        isSinger = !result.error && result.data === true;
+      }
+
+      $('modeBtn').textContent = isSinger ? '👑 Monta Mode ON' : '🎙️ Singer Mode';
+      $('loginForm').classList.toggle('hidden',isSinger);
+      $('logoutBtn').classList.toggle('hidden',!isSinger);
+      $('sungBtn').classList.toggle('hidden',!isSinger);
+      $('singerHint').classList.toggle('hidden',isSinger);
+    }
+
+    $('songForm').addEventListener('submit', async event => {
+      event.preventDefault();
+
+      const name = $('name').value.trim();
+      const id = youtubeId($('youtube').value);
+      const button = $('submitBtn');
+
+      if (!name || name.length > 40 || !id) {
+        $('formMessage').textContent = 'Please enter your name and a valid YouTube link.';
+        return;
+      }
+
+      button.disabled = true;
+      $('formMessage').textContent = 'Finding your song...';
+
+      try {
+        const videoUrl = `https://www.youtube.com/watch?v=${id}`;
+        let title = 'YouTube song ' + id;
+
+        try {
+          const response = await fetch(
+            'https://www.youtube.com/oembed?url=' +
+            encodeURIComponent(videoUrl) + '&format=json'
+          );
+          if (response.ok) {
+            const details = await response.json();
+            if (details.title) title = details.title.slice(0,200);
+          }
+        } catch {
+          // Keep the fallback title if metadata is unavailable.
+        }
+
+        const {error} = await db.from('songs').insert({
+          youtube_id:id,
+          title,
+          suggested_by:name
+        });
+
+        if (error) {
+          if (error.code === '23505') {
+            throw new Error('This song has already been suggested!');
+          }
+          throw error;
+        }
+
+        $('formMessage').textContent = '🎉 Song added to the shared vault!';
+        $('songForm').reset();
+        await loadSongs();
+      } catch (error) {
+        $('formMessage').textContent = '⚠️ ' + error.message;
+      } finally {
+        button.disabled = false;
+      }
+    });
+
+    $('drawBtn').addEventListener('click', async () => {
+      if (drawing) return;
+      drawing = true;
+      $('drawBtn').disabled = true;
+
+      try {
+        await loadSongs();
+        const waiting = songs.filter(s => !s.sung_at);
+
+        if (!waiting.length) {
+          alert('No songs available! Ask your friends to suggest some.');
+          return;
+        }
+
+        const randomIndex = Math.floor(Math.random() * waiting.length);
+        currentSong = waiting[randomIndex];
+
+        $('reveal').style.display = 'block';
+        $('result').classList.add('hidden');
+        $('reveal').scrollIntoView({behavior:'smooth',block:'center'});
+
+        for (const number of ['3','2','1','🎤']) {
+          $('countdown').textContent = number;
+          await new Promise(resolve => setTimeout(resolve,650));
+        }
+
+        $('countdown').textContent = '';
+        $('resultTitle').textContent = currentSong.title;
+        $('resultBy').textContent = 'Suggested by ' + currentSong.suggested_by;
+
+        const frame = document.createElement('iframe');
+        frame.src = 'https://www.youtube-nocookie.com/embed/' +
+          currentSong.youtube_id;
+        frame.title = 'Selected YouTube song';
+        frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+        frame.allowFullscreen = true;
+
+        $('videoContainer').replaceChildren(frame);
+        $('result').classList.remove('hidden');
+      } finally {
+        drawing = false;
+        $('drawBtn').disabled = false;
+      }
+    });
+
+    $('sungBtn').addEventListener('click', async () => {
+      if (!isSinger || !currentSong) return;
+      if (!confirm('Confirm that Monta performed this song?')) return;
+
+      $('sungBtn').disabled = true;
+
+      const {data,error} = await db.from('songs')
+        .update({sung_at:new Date().toISOString()})
+        .eq('id',currentSong.id)
+        .is('sung_at',null)
+        .select('id');
+
+      $('sungBtn').disabled = false;
+
+      if (error || !data || !data.length) {
+        alert('Could not mark the song as performed. Please refresh.');
+        return;
+      }
+
+      alert('🏆 Another legendary performance!');
+      currentSong = null;
+      $('reveal').style.display = 'none';
+      $('videoContainer').replaceChildren();
+      await loadSongs();
+    });
+
+    $('modeBtn').addEventListener('click', () => {
+      $('loginPanel').classList.toggle('hidden');
+      if (!$('loginPanel').classList.contains('hidden')) {
+        $('loginPanel').scrollIntoView({behavior:'smooth'});
+      }
+    });
+
+    $('loginForm').addEventListener('submit', async event => {
+      event.preventDefault();
+      $('loginMessage').textContent = 'Signing in...';
+
+      const {error} = await db.auth.signInWithPassword({
+        email:$('email').value.trim(),
+        password:$('password').value
+      });
+
+      if (error) {
+        $('loginMessage').textContent = '⚠️ ' + error.message;
+        return;
+      }
+
+      await loadSingerStatus();
+      $('loginMessage').textContent = isSinger
+        ? '👑 Singer Mode activated!'
+        : 'This account is not authorized as Monta.';
+    });
+
+    $('logoutBtn').addEventListener('click', async () => {
+      await db.auth.signOut();
+      isSinger = false;
+      await loadSingerStatus();
+      $('loginMessage').textContent = 'Logged out.';
+    });
+
+    $('refreshBtn').addEventListener('click', loadSongs);
+
+    db.auth.onAuthStateChange(() => {
+      setTimeout(loadSingerStatus,0);
+    });
+
+    loadSongs();
+    loadSingerStatus();
+  </script>
+</body>
+</html>
