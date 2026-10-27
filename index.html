@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,17 +14,36 @@
       --white:#fff7ff;
       --muted:#d9c4e5;
     }
+
     * { box-sizing:border-box; }
+
     body {
       margin:0;
       color:var(--white);
       font-family:system-ui,-apple-system,sans-serif;
-      background:radial-gradient(circle at 50% 0%,#663184,var(--bg) 65%);
+      background:radial-gradient(circle at 50% 0%, #663184, var(--bg) 65%);
       min-height:100vh;
     }
-    .container { max-width:540px; margin:auto; padding:20px 16px 60px; }
-    header { display:flex; justify-content:space-between; align-items:center; }
-    .brand { font-size:23px; font-weight:950; color:var(--yellow); }
+
+    .container {
+      max-width:540px;
+      margin:auto;
+      padding:20px 16px 60px;
+    }
+
+    header {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+    }
+
+    .brand {
+      font-size:23px;
+      font-weight:950;
+      color:var(--yellow);
+    }
+
     .pill {
       border:1px solid #9366a9;
       border-radius:30px;
@@ -34,15 +52,26 @@
       background:#ffffff12;
       color:var(--white);
     }
-    .hero { text-align:center; padding:30px 0 20px; }
+
+    .hero {
+      text-align:center;
+      padding:30px 0 20px;
+    }
+
     h1 {
       font-size:clamp(35px,9vw,53px);
       line-height:1.03;
       margin:10px 0;
       letter-spacing:-2px;
     }
+
     h1 span { color:var(--yellow); }
-    .subtitle { color:var(--muted); font-size:14px; }
+
+    .subtitle {
+      color:var(--muted);
+      font-size:14px;
+    }
+
     .portrait {
       width:210px;
       height:210px;
@@ -50,10 +79,11 @@
       object-position:center 22%;
       border-radius:50%;
       border:7px solid var(--pink);
-      box-shadow:0 0 0 9px #ff73c51c,0 0 65px #ff73c54a;
+      box-shadow:0 0 0 9px #ff73c51c, 0 0 65px #ff73c54a;
       margin:24px auto;
       display:block;
     }
+
     button {
       cursor:pointer;
       border:0;
@@ -63,23 +93,53 @@
       font-weight:800;
       font-family:inherit;
     }
-    button:disabled { opacity:.5; cursor:not-allowed; }
+
+    button:disabled {
+      opacity:.5;
+      cursor:not-allowed;
+    }
+
     .primary {
       width:100%;
       background:var(--yellow);
       color:#261331;
       box-shadow:0 5px 0 #b78b24;
     }
+
     .secondary {
       background:#65417d;
       color:white;
       width:100%;
     }
-    .pink { background:var(--pink); color:#2d1237; width:100%; }
-    .stats { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:22px 0; }
-    .stat { background:var(--panel); border-radius:16px; padding:16px; text-align:center; }
-    .stat strong { display:block; font-size:30px; color:var(--yellow); }
+
+    .pink {
+      background:var(--pink);
+      color:#2d1237;
+      width:100%;
+    }
+
+    .stats {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+      margin:22px 0;
+    }
+
+    .stat {
+      background:var(--panel);
+      border-radius:16px;
+      padding:16px;
+      text-align:center;
+    }
+
+    .stat strong {
+      display:block;
+      font-size:30px;
+      color:var(--yellow);
+    }
+
     .stat small { color:var(--muted); }
+
     .card {
       background:var(--panel);
       border:1px solid #ffffff1a;
@@ -87,9 +147,21 @@
       padding:22px;
       margin:18px 0;
     }
-    h2 { margin:0 0 12px; font-size:23px; }
+
+    h2 {
+      margin:0 0 12px;
+      font-size:23px;
+    }
+
     p { line-height:1.5; }
-    label { display:block; margin:13px 0 6px; font-size:13px; font-weight:700; }
+
+    label {
+      display:block;
+      margin:13px 0 6px;
+      font-size:13px;
+      font-weight:700;
+    }
+
     input {
       width:100%;
       padding:14px;
@@ -99,9 +171,20 @@
       color:white;
       font-size:16px;
     }
+
     input::placeholder { color:#ad91bd; }
-    .hint { color:var(--muted); font-size:12px; }
-    .message { margin-top:12px; font-size:13px; min-height:20px; }
+
+    .hint {
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    .message {
+      margin-top:12px;
+      font-size:13px;
+      min-height:20px;
+    }
+
     .song {
       padding:13px 0;
       border-bottom:1px solid #ffffff20;
@@ -109,26 +192,218 @@
       gap:12px;
       align-items:center;
     }
-    .song img { width:85px; border-radius:9px; }
-    .song-info { min-width:0; flex:1; }
-    .song-title { font-weight:800; overflow-wrap:anywhere; }
-    .song-meta { font-size:12px; color:var(--muted); margin-top:5px; }
+
+    .song img {
+      width:85px;
+      border-radius:9px;
+    }
+
+    .song-info {
+      min-width:0;
+      flex:1;
+    }
+
+    .song-title {
+      font-weight:800;
+      overflow-wrap:anywhere;
+    }
+
+    .song-meta {
+      font-size:12px;
+      color:var(--muted);
+      margin-top:5px;
+    }
+
     a { color:var(--yellow); }
-    .empty { color:var(--muted); text-align:center; padding:15px; }
+
+    .empty {
+      color:var(--muted);
+      text-align:center;
+      padding:15px;
+    }
+
     .reveal {
       display:none;
       text-align:center;
       padding:22px 0;
     }
-    .reveal h2 { color:var(--yellow); font-size:29px; }
-    .reveal img { width:100%; border-radius:15px; margin:12px 0; }
-    iframe { width:100%; aspect-ratio:16/9; border:0; border-radius:12px; }
-    .countdown { font-size:85px; font-weight:950; color:var(--yellow); }
-    .hidden { display:none!important; }
-    .row { display:flex; gap:10px; align-items:center; }
+
+    .reveal h2 {
+      color:var(--yellow);
+      font-size:29px;
+    }
+
+    iframe {
+      width:100%;
+      aspect-ratio:16/9;
+      border:0;
+      border-radius:12px;
+    }
+
+    .hidden { display:none !important; }
+
+    .row {
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+
     .row button { flex:1; }
-    footer { text-align:center; color:var(--muted); font-size:12px; margin-top:30px; }
-    .tag { color:#a9f0c4; font-size:12px; }
+
+    footer {
+      text-align:center;
+      color:var(--muted);
+      font-size:12px;
+      margin-top:30px;
+    }
+
+    /* Loading animation */
+    .loading-stage {
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:16px;
+      min-height:360px;
+      padding:10px 0;
+    }
+
+    .floating-zone {
+      position:relative;
+      width:280px;
+      height:280px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .floating-monta {
+      width:160px;
+      height:160px;
+      object-fit:cover;
+      object-position:center 22%;
+      border-radius:50%;
+      border:7px solid var(--yellow);
+      box-shadow:0 0 0 10px #ffdc5820, 0 0 55px #ffdc5840;
+      animation:floatMonta 2.2s ease-in-out infinite;
+      position:relative;
+      z-index:2;
+    }
+
+    .beer-ring {
+      position:absolute;
+      inset:0;
+      animation:spinRing 5.5s linear infinite;
+    }
+
+    .beer {
+      position:absolute;
+      left:50%;
+      top:50%;
+      width:42px;
+      height:42px;
+      margin-left:-21px;
+      margin-top:-21px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:30px;
+      transform:
+        rotate(calc(var(--i) * 60deg))
+        translateY(-118px)
+        rotate(calc(var(--i) * -60deg));
+      filter:drop-shadow(0 0 8px rgba(255,220,88,.35));
+      animation:beerBob 1.7s ease-in-out infinite;
+      animation-delay:calc(var(--i) * 0.15s);
+    }
+
+    .loading-title {
+      font-size:28px;
+      font-weight:900;
+      color:var(--yellow);
+      margin:0;
+    }
+
+    .loading-subtitle {
+      font-size:14px;
+      color:var(--muted);
+      max-width:280px;
+      margin:0 auto;
+    }
+
+    .loading-dots::after {
+      content:'';
+      display:inline-block;
+      width:20px;
+      text-align:left;
+      animation:dots 1.2s steps(4, end) infinite;
+      overflow:hidden;
+      vertical-align:bottom;
+    }
+
+    @keyframes floatMonta {
+      0%, 100% { transform:translateY(0px) rotate(-1deg) scale(1); }
+      50% { transform:translateY(-16px) rotate(1deg) scale(1.03); }
+    }
+
+    @keyframes spinRing {
+      from { transform:rotate(0deg); }
+      to { transform:rotate(360deg); }
+    }
+
+    @keyframes beerBob {
+      0%, 100% { transform:
+        rotate(calc(var(--i) * 60deg))
+        translateY(-118px)
+        rotate(calc(var(--i) * -60deg))
+        scale(1); }
+      50% { transform:
+        rotate(calc(var(--i) * 60deg))
+        translateY(-128px)
+        rotate(calc(var(--i) * -60deg))
+        scale(1.08); }
+    }
+
+    @keyframes dots {
+      0% { content:''; }
+      25% { content:'.'; }
+      50% { content:'..'; }
+      75% { content:'...'; }
+      100% { content:''; }
+    }
+
+    @media (max-width:480px) {
+      .floating-zone {
+        width:240px;
+        height:240px;
+      }
+
+      .floating-monta {
+        width:140px;
+        height:140px;
+      }
+
+      .beer {
+        font-size:27px;
+        transform:
+          rotate(calc(var(--i) * 60deg))
+          translateY(-98px)
+          rotate(calc(var(--i) * -60deg));
+      }
+
+      @keyframes beerBob {
+        0%, 100% { transform:
+          rotate(calc(var(--i) * 60deg))
+          translateY(-98px)
+          rotate(calc(var(--i) * -60deg))
+          scale(1); }
+        50% { transform:
+          rotate(calc(var(--i) * 60deg))
+          translateY(-108px)
+          rotate(calc(var(--i) * -60deg))
+          scale(1.08); }
+      }
+    }
   </style>
 </head>
 <body>
@@ -154,7 +429,24 @@
     </div>
 
     <section class="card reveal" id="reveal">
-      <div id="countdown" class="countdown"></div>
+      <div id="loadingStage" class="loading-stage hidden">
+        <div class="floating-zone">
+          <div class="beer-ring">
+            <span class="beer" style="--i:0">🍺</span>
+            <span class="beer" style="--i:1">🍺</span>
+            <span class="beer" style="--i:2">🍺</span>
+            <span class="beer" style="--i:3">🍺</span>
+            <span class="beer" style="--i:4">🍺</span>
+            <span class="beer" style="--i:5">🍺</span>
+          </div>
+          <img class="floating-monta" src="monta.jpg" alt="Floating Monta">
+        </div>
+        <h2 class="loading-title">Summoning Monta Energy 🍺</h2>
+        <p class="loading-subtitle">
+          Consulting the beer council<span class="loading-dots"></span>
+        </p>
+      </div>
+
       <div id="result" class="hidden">
         <h2>🎉 MONTA, YOU'RE UP!</h2>
         <div id="resultTitle" class="song-title"></div>
@@ -244,7 +536,7 @@
             id = url.searchParams.get('v');
           } else {
             const parts = url.pathname.split('/');
-            if (['shorts','embed','live'].includes(parts[1])) {
+            if (['shorts', 'embed', 'live'].includes(parts[1])) {
               id = parts[2];
             }
           }
@@ -312,7 +604,7 @@
       } else {
         $('historyList').className = '';
         performed
-          .sort((a,b) => new Date(b.sung_at) - new Date(a.sung_at))
+          .sort((a, b) => new Date(b.sung_at) - new Date(a.sung_at))
           .forEach(s => $('historyList').append(makeSongElement(s)));
       }
     }
@@ -336,6 +628,7 @@
 
     async function loadSingerStatus() {
       const { data:{user}, error } = await db.auth.getUser();
+
       if (error || !user) {
         isSinger = false;
       } else {
@@ -344,10 +637,10 @@
       }
 
       $('modeBtn').textContent = isSinger ? '👑 Monta Mode ON' : '🎙️ Singer Mode';
-      $('loginForm').classList.toggle('hidden',isSinger);
-      $('logoutBtn').classList.toggle('hidden',!isSinger);
-      $('sungBtn').classList.toggle('hidden',!isSinger);
-      $('singerHint').classList.toggle('hidden',isSinger);
+      $('loginForm').classList.toggle('hidden', isSinger);
+      $('logoutBtn').classList.toggle('hidden', !isSinger);
+      $('sungBtn').classList.toggle('hidden', !isSinger);
+      $('singerHint').classList.toggle('hidden', isSinger);
     }
 
     $('songForm').addEventListener('submit', async event => {
@@ -376,13 +669,13 @@
           );
           if (response.ok) {
             const details = await response.json();
-            if (details.title) title = details.title.slice(0,200);
+            if (details.title) title = details.title.slice(0, 200);
           }
         } catch {
-          // Keep the fallback title if metadata is unavailable.
+          // keep fallback title
         }
 
-        const {error} = await db.from('songs').insert({
+        const { error } = await db.from('songs').insert({
           youtube_id:id,
           title,
           suggested_by:name
@@ -423,21 +716,19 @@
         currentSong = waiting[randomIndex];
 
         $('reveal').style.display = 'block';
+        $('loadingStage').classList.remove('hidden');
         $('result').classList.add('hidden');
-        $('reveal').scrollIntoView({behavior:'smooth',block:'center'});
 
-        for (const number of ['3','2','1','🎤']) {
-          $('countdown').textContent = number;
-          await new Promise(resolve => setTimeout(resolve,650));
-        }
+        $('reveal').scrollIntoView({ behavior:'smooth', block:'center' });
 
-        $('countdown').textContent = '';
+        await new Promise(resolve => setTimeout(resolve, 2800));
+
+        $('loadingStage').classList.add('hidden');
         $('resultTitle').textContent = currentSong.title;
         $('resultBy').textContent = 'Suggested by ' + currentSong.suggested_by;
 
         const frame = document.createElement('iframe');
-        frame.src = 'https://www.youtube-nocookie.com/embed/' +
-          currentSong.youtube_id;
+        frame.src = 'https://www.youtube-nocookie.com/embed/' + currentSong.youtube_id;
         frame.title = 'Selected YouTube song';
         frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
         frame.allowFullscreen = true;
@@ -456,10 +747,10 @@
 
       $('sungBtn').disabled = true;
 
-      const {data,error} = await db.from('songs')
-        .update({sung_at:new Date().toISOString()})
-        .eq('id',currentSong.id)
-        .is('sung_at',null)
+      const { data, error } = await db.from('songs')
+        .update({ sung_at:new Date().toISOString() })
+        .eq('id', currentSong.id)
+        .is('sung_at', null)
         .select('id');
 
       $('sungBtn').disabled = false;
@@ -479,7 +770,7 @@
     $('modeBtn').addEventListener('click', () => {
       $('loginPanel').classList.toggle('hidden');
       if (!$('loginPanel').classList.contains('hidden')) {
-        $('loginPanel').scrollIntoView({behavior:'smooth'});
+        $('loginPanel').scrollIntoView({ behavior:'smooth' });
       }
     });
 
@@ -487,7 +778,7 @@
       event.preventDefault();
       $('loginMessage').textContent = 'Signing in...';
 
-      const {error} = await db.auth.signInWithPassword({
+      const { error } = await db.auth.signInWithPassword({
         email:$('email').value.trim(),
         password:$('password').value
       });
@@ -513,7 +804,7 @@
     $('refreshBtn').addEventListener('click', loadSongs);
 
     db.auth.onAuthStateChange(() => {
-      setTimeout(loadSingerStatus,0);
+      setTimeout(loadSingerStatus, 0);
     });
 
     loadSongs();
